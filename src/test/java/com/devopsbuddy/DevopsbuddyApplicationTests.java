@@ -11,7 +11,6 @@ import com.devopsbuddy.web.i18n.I18NService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-
 public class DevopsbuddyApplicationTests {
 
 	@Autowired
