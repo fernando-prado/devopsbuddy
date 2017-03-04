@@ -4,9 +4,10 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -14,9 +15,6 @@ import com.devopsbuddy.backend.persistence.domain.backend.Plan;
 import com.devopsbuddy.backend.persistence.domain.backend.Role;
 import com.devopsbuddy.backend.persistence.domain.backend.User;
 import com.devopsbuddy.backend.persistence.domain.backend.UserRole;
-import com.devopsbuddy.backend.persistence.repositories.PlanRepository;
-import com.devopsbuddy.backend.persistence.repositories.RoleRepository;
-import com.devopsbuddy.backend.persistence.repositories.UserRepository;
 import com.devopsbuddy.enums.PlansEnum;
 import com.devopsbuddy.enums.RolesEnum;
 
@@ -24,14 +22,8 @@ import com.devopsbuddy.enums.RolesEnum;
 @SpringBootTest
 public class UserRepositoryIntegrationTest extends AbstractIntegrationTest{
 
-    @Autowired
-    protected PlanRepository planRepository;
-
-    @Autowired
-    protected RoleRepository roleRepository;
-
-    @Autowired
-    protected UserRepository userRepository;
+     
+    @Rule public TestName testName = new TestName();
     
     @Before
     public void init() {
@@ -58,8 +50,8 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest{
     @Test
     public void createNewUser() throws Exception {
 
-        String username = "username";//testName.getMethodName();
-        String email = "user@devopsbuddy.com";//testName.getMethodName() + "@devopsbuddy.com";
+        String username = testName.getMethodName();
+        String email = testName.getMethodName() + "@devopsbuddy.com";
 
         User basicUser = createUser(username, email);
 
@@ -79,8 +71,8 @@ public class UserRepositoryIntegrationTest extends AbstractIntegrationTest{
     @Test
     public void testDeleteUser() throws Exception {
 
-        String username = "username";//testName.getMethodName();
-        String email = "user@devopsbuddy.com";//testName.getMethodName() + "@devopsbuddy.com";
+        String username = testName.getMethodName();
+        String email = testName.getMethodName() + "@devopsbuddy.com";
 
         User basicUser = createUser(username, email);
         userRepository.delete(basicUser.getId());

@@ -36,9 +36,9 @@ public class UserUtils {
         return user;
     }
     
-    public static User createBasicUser() {
-    	return createBasicUser("basicUser", "me@example.com");
-    }
+//    public static User createBasicUser() {
+//    	return createBasicUser("basicUser", "me@example.com");
+//    }
 
 
 }
