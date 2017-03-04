@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by tedonema on 11/04/2016.
  */
 public abstract class AbstractServiceIntegrationTest {
     @Autowired
