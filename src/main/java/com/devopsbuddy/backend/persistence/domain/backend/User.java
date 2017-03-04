@@ -37,12 +37,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String username;
 
     private String password;
 
-    @Column(unique = true)
+    //@Column(unique = true)
     private String email;
 
     @Column(name = "first_name")
