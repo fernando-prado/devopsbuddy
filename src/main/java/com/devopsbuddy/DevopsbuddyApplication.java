@@ -21,7 +21,7 @@ import com.devopsbuddy.utils.UserUtils;
 
 
 @SpringBootApplication
-public class DevopsbuddyApplication implements CommandLineRunner{
+public class DevopsbuddyApplication implements CommandLineRunner {
 
 	/** The application logger */
 	private static final Logger log = LoggerFactory.getLogger(DevopsbuddyApplication.class);

@@ -10,9 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.devopsbuddy.backend.persistence.domain.backend.User;
 
-/**
- * Created by tedonema on 30/03/2016.
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserServiceIntegrationTest extends AbstractServiceIntegrationTest {
