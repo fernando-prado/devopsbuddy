@@ -12,9 +12,6 @@ import javax.persistence.OneToMany;
 
 import com.devopsbuddy.enums.RolesEnum;
 
-/**
- * Created by tedonema on 28/03/2016.
- */
 @Entity
 public class Role implements Serializable {
 

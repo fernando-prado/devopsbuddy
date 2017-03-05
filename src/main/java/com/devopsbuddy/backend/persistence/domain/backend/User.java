@@ -20,9 +20,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- * Created by tedonema on 28/03/2016.
- */
 @Entity
 public class User implements Serializable, UserDetails {
 

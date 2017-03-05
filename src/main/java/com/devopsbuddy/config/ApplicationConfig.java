@@ -19,6 +19,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 @EntityScan(basePackages = "com.devopsbuddy.backend.persistence.domain.backend")
 @EnableTransactionManagement
 @PropertySource("file:///${user.home}/.devopsbuddy/config/application-common.properties")
+@PropertySource("file:///${user.home}/.devopsbuddy/config/stripe.properties")
 public class ApplicationConfig {
 
 	
