@@ -12,7 +12,7 @@ import com.devopsbuddy.backend.service.MockEmailService;
 
 @Configuration
 @Profile("dev")
-@PropertySource("file:///C:/dados/Projetos/SpringBoot_AWS/devopsbuddy_config/application-dev.properties")
+@PropertySource("file:///${user.home}/.devopsbuddy/config/application-dev.properties")
 public class DevelopmentConfig {
 	
 	@Bean

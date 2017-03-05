@@ -28,6 +28,7 @@ import com.devopsbuddy.backend.persistence.domain.backend.Role;
 import com.devopsbuddy.backend.persistence.domain.backend.User;
 import com.devopsbuddy.backend.persistence.domain.backend.UserRole;
 import com.devopsbuddy.backend.service.PlanService;
+import com.devopsbuddy.backend.service.S3Service;
 import com.devopsbuddy.backend.service.UserService;
 import com.devopsbuddy.enums.PlansEnum;
 import com.devopsbuddy.enums.RolesEnum;
@@ -44,8 +45,8 @@ public class SignupController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private S3Service s3Service;
+    @Autowired
+    private S3Service s3Service;
 
 //    @Autowired
 //    private StripeService stripeService;
@@ -82,9 +83,9 @@ public class SignupController {
 
     @RequestMapping(value = SIGNUP_URL_MAPPING, method = RequestMethod.POST)
     public String signUpPost(@RequestParam(name = "planId", required = true) int planId,
-                             @ModelAttribute(PAYLOAD_MODEL_KEY_NAME) @Valid ProAccountPayload payload,
+    						 @RequestParam(name = "file", required = false) MultipartFile file,
+    						 @ModelAttribute(PAYLOAD_MODEL_KEY_NAME) @Valid ProAccountPayload payload,
                              ModelMap model) throws IOException {
-        //@RequestParam(name = "file", required = false) MultipartFile file,
 
         if (planId != PlansEnum.BASIC.getId() && planId != PlansEnum.PRO.getId()) {
             model.addAttribute(SIGNED_UP_MESSAGE_KEY, "false");
@@ -123,9 +124,6 @@ public class SignupController {
         LOG.debug("Transforming user payload into User domain object");
         User user = UserUtils.fromWebUserToDomainUser(payload);
 
-
-        
-        /*
         // Stores the profile image on Amazon S3 and stores the URL in the user's record
         if (file != null && !file.isEmpty()) {
 
@@ -138,7 +136,6 @@ public class SignupController {
             }
 
         }
-        */
 
         // Sets the Plan and the Roles (depending on the chosen plan)
         LOG.debug("Retrieving plan from the database");

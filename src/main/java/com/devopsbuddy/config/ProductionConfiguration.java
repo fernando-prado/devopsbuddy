@@ -10,7 +10,7 @@ import com.devopsbuddy.backend.service.SmtpEmailService;
 
 @Configuration
 @Profile("prod")
-@PropertySource("file:///C:/dados/Projetos/SpringBoot_AWS/devopsbuddy_config/application-prod.properties")
+@PropertySource("file:///${user.home}/.devopsbuddy/config/application-prod.properties")
 public class ProductionConfiguration {
 
 	@Bean
