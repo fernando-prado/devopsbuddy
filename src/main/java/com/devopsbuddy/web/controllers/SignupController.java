@@ -1,23 +1,45 @@
 package com.devopsbuddy.web.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.devopsbuddy.backend.persistence.domain.backend.Plan;
+import com.devopsbuddy.backend.persistence.domain.backend.Role;
+import com.devopsbuddy.backend.persistence.domain.backend.User;
+import com.devopsbuddy.backend.persistence.domain.backend.UserRole;
+import com.devopsbuddy.backend.service.PlanService;
 import com.devopsbuddy.backend.service.UserService;
 import com.devopsbuddy.enums.PlansEnum;
+import com.devopsbuddy.enums.RolesEnum;
+import com.devopsbuddy.utils.UserUtils;
+import com.devopsbuddy.web.domain.frontend.BasicAccountPayload;
 import com.devopsbuddy.web.domain.frontend.ProAccountPayload;
 
 @Controller
 public class SignupController {
 
-//    @Autowired
-//    private PlanService planService;
+    @Autowired
+    private PlanService planService;
 
     @Autowired
     private UserService userService;
@@ -58,12 +80,11 @@ public class SignupController {
         return SUBSCRIPTION_VIEW_NAME;
     }
 
-    /*    
     @RequestMapping(value = SIGNUP_URL_MAPPING, method = RequestMethod.POST)
     public String signUpPost(@RequestParam(name = "planId", required = true) int planId,
-                             @RequestParam(name = "file", required = false) MultipartFile file,
                              @ModelAttribute(PAYLOAD_MODEL_KEY_NAME) @Valid ProAccountPayload payload,
                              ModelMap model) throws IOException {
+        //@RequestParam(name = "file", required = false) MultipartFile file,
 
         if (planId != PlansEnum.BASIC.getId() && planId != PlansEnum.PRO.getId()) {
             model.addAttribute(SIGNED_UP_MESSAGE_KEY, "false");
@@ -102,6 +123,9 @@ public class SignupController {
         LOG.debug("Transforming user payload into User domain object");
         User user = UserUtils.fromWebUserToDomainUser(payload);
 
+
+        
+        /*
         // Stores the profile image on Amazon S3 and stores the URL in the user's record
         if (file != null && !file.isEmpty()) {
 
@@ -114,6 +138,7 @@ public class SignupController {
             }
 
         }
+        */
 
         // Sets the Plan and the Roles (depending on the chosen plan)
         LOG.debug("Retrieving plan from the database");
@@ -148,6 +173,7 @@ public class SignupController {
 
             }
 
+            /*
             // If the user has selected the pro account, creates the Stripe customer to store the stripe customer id in
             // the db
             Map<String, Object> stripeTokenParams = StripeUtils.extractTokenParamsFromSignupPayload(payload);
@@ -161,7 +187,8 @@ public class SignupController {
             LOG.info("Username: {} has been subscribed to Stripe", payload.getUsername());
 
             user.setStripeCustomerId(stripeCustomerId);
-
+             */
+            
             registeredUser = userService.createUser(user, PlansEnum.PRO, roles);
             LOG.debug(payload.toString());
         }
@@ -179,6 +206,7 @@ public class SignupController {
         return SUBSCRIPTION_VIEW_NAME;
     }
 
+    /*    
     @ExceptionHandler({StripeException.class, S3Exception.class})
     public ModelAndView signupException(HttpServletRequest request, Exception exception) {
 
@@ -192,13 +220,14 @@ public class SignupController {
         return mav;
     }
 
+*/    
 
     //--------------> Private methods
 
-//
-//     * Checks if the username/email are duplicates and sets error flags in the model.
-//     * Side effect: the method might set attributes on Model
-//     *
+    /**
+     * Checks if the username/email are duplicates and sets error flags in the model.
+     * Side effect: the method might set attributes on Model
+     **/
     private void checkForDuplicates(BasicAccountPayload payload, ModelMap model) {
 
         // Username
@@ -210,5 +239,4 @@ public class SignupController {
         }
 
     }
-*/    
 }
