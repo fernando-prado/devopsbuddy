@@ -45,13 +45,12 @@ public class UserService {
     @Transactional
     public User createUser(User user, PlansEnum plansEnum, Set<UserRole> userRoles) {
 
-    	User localUser = user;
-        //User localUser = userRepository.findByEmail(user.getEmail());
+        User localUser = userRepository.findByEmail(user.getEmail());
 
-        //if (localUser != null) {
-        //	log.info("User with username {} and email {} already exist. Nothing will be done. ",
-        //            user.getUsername(), user.getEmail());
-        //} else {
+        if (localUser != null) {
+        	log.info("User with username {} and email {} already exist. Nothing will be done. ",
+                    user.getUsername(), user.getEmail());
+        } else {
 
             String encryptedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encryptedPassword);
@@ -72,7 +71,7 @@ public class UserService {
 
             localUser = userRepository.save(user);
 
-        //}
+        }
 
         return localUser;
 
